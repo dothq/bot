@@ -255,6 +255,8 @@ client.on("message", async (message) => {
     } else if(command == 'suggest') {
         let onboard;
 
+        const msg = message;
+
         const embed = new Discord.RichEmbed()
             .setAuthor(message.author.username, message.author.avatarURL)
             .setColor('#36393f')
@@ -294,7 +296,7 @@ client.on("message", async (message) => {
                         errors: ['time', 'maxMatches']
                     }).then(async reply1 => {
                         reply.first().delete()
-                        onboard.delete()
+                        msg.delete()
 
                         if(reply1.first().content) {
                             let suggestion = reply1.first().content
@@ -304,31 +306,41 @@ client.on("message", async (message) => {
                             if(suggestion.length <= 256 && suggestion.length >= 12) {
                                 const ch = client.channels.find('id', '622786432720961556')
                     
+                                onboard.delete()
+
                                 ch.send(`${message.author.toString()} suggested: ${suggestion}`)
-                    
+                
                                 reply1.first().react("✅")
                     
                                 setTimeout(() => {
-                                    reply1.first().clearReactions()
                                     reply1.first().delete()
-                                    message.delete()
                                 }, 4000);
                             } else {
                                 reply1.first().delete()
+                                msg.delete()
                                 const embed = new Discord.RichEmbed()
                                     .setTitle(`❌  Your suggestion must be over 12 characters and 256 maximum.`)
                                     .setColor('#36393f')
-                                message.channel.send(embed);
+                                onboard.edit(embed);
+
+                                setTimeout(() => {
+                                    onboard.delete()
+                                }, 4000);
                             }
                         }
                     })
                 } else {
-                    onboard.delete()
+                    reply.first().delete()
+                    msg.delete()
 
                     const embed = new Discord.RichEmbed()
                         .setTitle(`❌  Product number invalid.`)
                         .setColor('#36393f')
-                    return message.channel.send(embed);
+                    onboard.edit(embed)
+
+                    setTimeout(() => {
+                        onboard.delete()
+                    }, 4000);
                 }
             }
         })

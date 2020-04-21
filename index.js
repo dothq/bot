@@ -9,7 +9,11 @@ require('dotenv').config()
 client.on("ready", () => {
   console.log("I am ready!");
 
-  client.user.setPresence({ game: { name: 'dothq.co', url: "twitch.tv/dothq.co", type: "STREAMING" }, status: 'online' })
+  setInterval(() => {
+    client.user.setActivity(`${client.guilds.length} users`, {
+        type: "WATCHING"
+      });
+  }, 10000);
 });
  
 const prefix = "db!"

@@ -10,7 +10,7 @@ client.on("ready", () => {
   console.log("I am ready!");
 
   setInterval(() => {
-    client.user.setActivity(`${client.guilds.length} users`, {
+    client.user.setActivity(`${client.guilds.size} users`, {
         type: "WATCHING"
       });
   }, 10000);

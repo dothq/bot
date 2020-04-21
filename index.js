@@ -132,7 +132,7 @@ client.on("guildMemberAdd", async (member) => {
         .setAuthor(member.user.username, member.user.avatarURL)
         .setColor('#2f3136')
         .setTitle(`✨  Welcome to ${guild.name}, ${member.user.username}`)
-        .addField("🚀  Members", `${guild.memberCount}`, true)
+        .addField("💫  Members", `${guild.memberCount}`, true)
         .addField("🏆  Total Joins", `${totalJoins}`, true)
     ch.send(embed)
 });

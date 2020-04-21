@@ -343,15 +343,32 @@ client.on("message", async (message) => {
                         if(reply1.first().content) {
                             let suggestion = reply1.first().content
 
-                            console.log(suggestion, suggestion.length <= 256, suggestion.length >= 12)
-
                             if(suggestion.length <= 256 && suggestion.length >= 12) {
                                 const ch = client.channels.find('id', '622786432720961556')
                     
                                 onboard.delete()
 
-                                ch.send(`${message.author.toString()} suggested: ${suggestion}`)
+                                const choiceEmojis = [
+                                    'https://i.imgur.com/mwL3zjn.png',
+                                    'https://i.imgur.com/7ZO0qdW.png',
+                                    'https://i.imgur.com/sNqcQKS.png',
+                                    'https://i.imgur.com/sNqcQKS.png',
+                                    'https://i.imgur.com/JUgZztc.png'
+                                ]
+
+                                let smsg;
+
+                                const embed = new Discord.RichEmbed()
+                                    .setAuthor(choices[choice - 1], choiceEmojis[choice - 1])
+                                    .setColor('#2f3136')
+                                    .setTitle(`💫  Suggestion from ${message.author.username}`)
+                                    .setDescription(`${suggestion}`)
+                                smsg = await ch.send(embed)
                 
+                                smsg.react("👍")
+                                smsg.react("👎")
+                                smsg.react("🤔")
+
                                 reply1.first().react("✅")
                     
                                 setTimeout(() => {

@@ -29,7 +29,7 @@ function installFor(message, os) {
             })
 
             const embed = new Discord.RichEmbed()
-                .setColor('#36393f')
+                .setColor('#2f3136')
                 .setAuthor(res.tag_name, message.client.user.avatarURL)
                 .setTitle(`<:windows:661585643876384768>  Windows Downloads`)
                 .setDescription(assets)
@@ -49,7 +49,7 @@ function installFor(message, os) {
             })
 
             const embed = new Discord.RichEmbed()
-                .setColor('#36393f')
+                .setColor('#2f3136')
                 .setAuthor(res.tag_name, message.client.user.avatarURL)
                 .setTitle(`<:macos:661584061533519915>  macOS Downloads`)
                 .setDescription(assets)
@@ -69,7 +69,7 @@ function installFor(message, os) {
             })
 
             const embed = new Discord.RichEmbed()
-                .setColor('#36393f')
+                .setColor('#2f3136')
                 .setAuthor(res.tag_name, message.client.user.avatarURL)
                 .setTitle(`<:linux:661585642689658902>  Linux Downloads`)
                 .setDescription(assets)
@@ -108,12 +108,54 @@ async function ref(message, queue) {
             message.clearReactions()
             const embed = new Discord.RichEmbed()
                 .setAuthor(payload.author.login, payload.author.avatar_url)
-                .setColor('#36393f')
+                .setColor('#2f3136')
                 .setDescription(payload.commit)
                 .setFooter(payload.shas.substring(0, payload.shas.length-2), 'https://cdn.discordapp.com/avatars/564914670818033664/df91181b3f1cf0ef1592fbe18e0962d7.png?size=512')
             message.channel.send(embed)
         })
 }
+
+client.on("guildMemberAdd", async (member) => {
+    const guild = member.guild;
+    
+    const ch = client.channels.find('id', '623165984135446558')
+
+    const invites = await guild.fetchInvites()
+
+    let totalJoins = 0;
+
+    invites.forEach(invite => {
+        totalJoins += invite.uses
+    })
+
+    const embed = new Discord.RichEmbed()
+        .setAuthor(member.user.username, member.user.avatarURL)
+        .setColor('#2f3136')
+        .setTitle(`✨  Welcome to ${guild.name}, ${member.user.username}`)
+        .addField("🚀  Members", `${guild.memberCount}`, true)
+        .addField("🏆  Total Joins", `${totalJoins}`, true)
+    ch.send(embed)
+});
+
+client.on("guildMemberRemove", async (member) => {
+    const guild = member.guild;
+    
+    const ch = client.channels.find('id', '623165984135446558')
+
+    const invites = await guild.fetchInvites()
+
+    let totalJoins = 0;
+
+    invites.forEach(invite => {
+        totalJoins += invite.uses
+    })
+
+    const embed = new Discord.RichEmbed()
+        .setAuthor(member.user.username, member.user.avatarURL)
+        .setColor('#2f3136')
+        .setTitle(`🔥  ${member.user.username} has left`)
+    ch.send(embed)
+});
 
 client.on("message", async (message) => {
     // && required
@@ -176,12 +218,12 @@ client.on("message", async (message) => {
             }
 
             const embed = new Discord.RichEmbed()
-                .setColor('#36393f')
+                .setColor('#2f3136')
                 .setFooter(res.reply, 'https://cdn.discordapp.com/emojis/661951491082551306.gif?v=1')
             message.channel.send(embed)
         }).catch(res => {
             const embed = new Discord.RichEmbed()
-                .setColor('#36393f')
+                .setColor('#2f3136')
                 .setFooter(`Sorry, I can't help with that yet.`, 'https://cdn.discordapp.com/emojis/661951491082551306.gif?v=1')
             message.channel.send(embed)
         })
@@ -230,7 +272,7 @@ client.on("message", async (message) => {
                 res = res.data;
 
                 const embed = new Discord.RichEmbed()
-                    .setColor('#36393f')
+                    .setColor('#2f3136')
                     .setTitle(`⭐️ **${res.stargazers_count}** Stargazers for ${name}`)
                 message.channel.send(embed)
             })
@@ -246,7 +288,7 @@ client.on("message", async (message) => {
                 res = res.data;
 
                 const embed = new Discord.RichEmbed()
-                    .setColor('#36393f')
+                    .setColor('#2f3136')
                     .setTitle(`🍴 **${res.forks}** Forks of ${name}`)
                 message.channel.send(embed)
             })
@@ -259,7 +301,7 @@ client.on("message", async (message) => {
 
         const embed = new Discord.RichEmbed()
             .setAuthor(message.author.username, message.author.avatarURL)
-            .setColor('#36393f')
+            .setColor('#2f3136')
             .setTitle(`👋 Hi there.`)
             .setDescription(`Please select the product you want to suggest your idea for.\n\n1️⃣ Dot Browser\n2️⃣ Dot Drop\n3️⃣ Dot HQ Website (dothq.co)\n4️⃣ Dot Browser Website (browser.dothq.co)\n5️⃣ Other`)
         onboard = await message.channel.send(embed)
@@ -283,7 +325,7 @@ client.on("message", async (message) => {
 
                     const embed = new Discord.RichEmbed()
                         .setAuthor(message.author.username, message.author.avatarURL)
-                        .setColor('#36393f')
+                        .setColor('#2f3136')
                         .setTitle(`:${formatted[choice - 1]}: ${choices[choice - 1]}`)
                         .setDescription(`Please now type in your suggestion in under 256 characters. **Take your time as you cannot go back and edit your suggestion, you get one attempt to make it perfect. Good luck!**`)
                     onboard.edit(embed)
@@ -320,7 +362,7 @@ client.on("message", async (message) => {
                                 msg.delete()
                                 const embed = new Discord.RichEmbed()
                                     .setTitle(`❌  Your suggestion must be over 12 characters and 256 maximum.`)
-                                    .setColor('#36393f')
+                                    .setColor('#2f3136')
                                 onboard.edit(embed);
 
                                 setTimeout(() => {
@@ -335,7 +377,7 @@ client.on("message", async (message) => {
 
                     const embed = new Discord.RichEmbed()
                         .setTitle(`❌  Product number invalid.`)
-                        .setColor('#36393f')
+                        .setColor('#2f3136')
                     onboard.edit(embed)
 
                     setTimeout(() => {

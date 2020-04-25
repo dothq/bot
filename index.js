@@ -119,6 +119,24 @@ async function ref(message, queue) {
         })
 }
 
+setInterval(async () => {
+    const guild = client.guilds.find('id', '525056817399726102');
+    
+    const usersCH = client.channels.find('id', '703694290240536616')
+    const joinsCH = client.channels.find('id', '703696859423703078')
+
+    const invites = await guild.fetchInvites()
+
+    let totalJoins = 0;
+
+    invites.forEach(invite => {
+        totalJoins += invite.uses
+    })
+
+    usersCH.setName(`⭐ Users • ${guild.memberCount}`)
+    joinsCH.setName(`🏆 Joins • ${totalJoins}`)
+}, 5000);
+
 client.on("guildMemberAdd", async (member) => {
     const guild = member.guild;
     

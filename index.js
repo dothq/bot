@@ -119,11 +119,19 @@ async function ref(message, queue) {
         })
 }
 
+let lastEvent = {
+    name: 'N/A',
+    context: ''
+};
+
 setInterval(async () => {
     const guild = client.guilds.find('id', '525056817399726102');
     
     const usersCH = client.channels.find('id', '703694290240536616')
     const joinsCH = client.channels.find('id', '703696859423703078')
+    const laMSG = client.channels.find('id', '703701189166104736')
+
+    const msg = await laMSG.fetchMessage('703704650003513436');
 
     const invites = await guild.fetchInvites()
 
@@ -135,9 +143,26 @@ setInterval(async () => {
 
     usersCH.setName(`⭐ Users • ${guild.memberCount}`)
     joinsCH.setName(`🏆 Joins • ${totalJoins}`)
-}, 5000);
+
+    if(lastEvent.name !== "N/A") {
+        const embed = new Discord.RichEmbed()
+            .setColor('#2f3136')
+            .setTitle(`🕒 Last activity in ${guild.name}`)
+            .addField(`📤  Event`, lastEvent.name, true)
+            .addField(`👤  User`, lastEvent.context.member.user.toString(), true)
+        msg.edit(embed)
+    }
+}, 3000);
 
 client.on("guildMemberAdd", async (member) => {
+    lastEvent = {
+        name: 'User Joined',
+        context: {
+            member,
+            guild: member.guild
+        }
+    }
+
     const guild = member.guild;
     
     const ch = client.channels.find('id', '623165984135446558')
@@ -160,6 +185,14 @@ client.on("guildMemberAdd", async (member) => {
 });
 
 client.on("guildMemberRemove", async (member) => {
+    lastEvent = {
+        name: 'User Left',
+        context: {
+            member,
+            guild: member.guild
+        }
+    }
+
     const guild = member.guild;
     
     const ch = client.channels.find('id', '623165984135446558')
@@ -270,13 +303,51 @@ client.on("message", async (message) => {
 
     var args = [];
 
-    console.log(command)
+    lastEvent = {
+        name: `Command Ran (${prefix}${command})`,
+        context: {
+            member: message.member,
+            guild: message.guild
+        }
+    };
 
     if(message.content.includes(" ")) {
         args = message.content.split(`${prefix}${command} `)
         args.shift()
     }
     
+    const clean = text => {
+        if (typeof(text) === "string")
+          return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+        else
+            return text;
+    }
+
+    if(command == 'eval' && args[0]) {
+        if(message.author.id !== "217562587938816000") return;
+
+        const evaluation = args[0].split(" ").join(" ").replace(/--noPromise/g, "")
+
+        try {
+            let evaled = eval(evaluation);
+       
+            if (typeof evaled !== "string")
+                evaled = require("util").inspect(evaled);
+
+                var oe = evaled;
+
+                var regex = new RegExp("```", "g")
+
+                evaled.replace(regex, "")
+                if(message.content.includes("--noPromise")) evaled = evaled.replace(/Promise { <pending> }/g, "")
+        
+                if(clean(evaled).length !== 0) {
+                    message.channel.send(clean(evaled), {code: evaled.includes("Promise { <pending> }") ? 'js' : 'xl' });
+                }
+        } catch (err) {
+            message.channel.send(`\❌ \`\`\`js\n${clean(err)}\n\`\`\``);
+        }
+    }
 
     if(command == 'ref') {
         if(args) {

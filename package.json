@@ -1,6 +1,6 @@
 {
   "name": "bot",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "⚪️ Discord Bot used in The Dot Community",
   "main": "index.js",
   "scripts": {
@@ -18,9 +18,13 @@
   "homepage": "https://github.com/dothq/bot#readme",
   "dependencies": {
     "axios": "^0.19.2",
-    "discord.js": "^11.6.4",
+    "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
+    "quick.db": "^7.1.1",
     "request": "^2.88.2",
     "request-promise": "^4.2.5"
+  },
+  "devDependencies": {
+    "standard": "^14.3.3"
   }
 }

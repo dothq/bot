@@ -4,8 +4,8 @@ const discord = require('discord.js')
 // TODO: Make it so that it adds this to a card.
 
 exports.run = async (bot, message, args) => {
-    if(!message.member.roles.find(r => r.name === "CEO") || message.member.roles.find(r => rname === "Dev")) {
-        return
+    if (!message.member.roles.cache.has('525057083352285184') || !message.member.roles.cache.has('662323136343179264')) {
+        return message.channel.send('You don\'t have access to this command.')
     }
     if (!message.author.roles.cache.some(role => role.id === '525057083352285184' || '662323136343179264')) return 
     if (!db.get(`suggestion_${args[0]}`)) {

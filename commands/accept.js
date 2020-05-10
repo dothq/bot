@@ -6,8 +6,7 @@ const discord = require('discord.js')
 exports.run = async (bot, message, args) => {
     if (!message.member.roles.cache.has('525057083352285184') || !message.member.roles.cache.has('662323136343179264')) {
         return message.channel.send('You don\'t have access to this command.')
-    }
-    if (!message.author.roles.cache.some(role => role.id === '525057083352285184' || '662323136343179264')) return 
+    } 
     if (!db.get(`suggestion_${args[0]}`)) {
         return message.channel.send('You need to accept a valid suggestion.')
     }

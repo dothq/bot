@@ -20,6 +20,8 @@
     "axios": "^0.19.2",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
+    "node-emoji": "^1.10.0",
+    "num-words": "^1.2.0",
     "quick.db": "^7.1.1",
     "request": "^2.88.2",
     "request-promise": "^4.2.5"

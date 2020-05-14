@@ -5,6 +5,10 @@ const emoji = require('node-emoji')
 exports.run = async (bot, message, args) => {
     const msg = message;
 
+    if (!message.member.roles.cache.has('525057083352285184') || !message.member.roles.cache.has('662323136343179264')) {
+        return message.channel.send('You don\'t have access to this command.')
+    } 
+
     const bigString = (args.join(" ").split('<>').pop().split('</>')[0]).replace("</>", "")
 
     const chs = args.join(" ").split(bigString)[1].replace("</>", "")

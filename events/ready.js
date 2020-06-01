@@ -14,9 +14,8 @@ exports.run = (bot) => {
     axios.get('https://dothq.co/api/builds.all').then(response => {
       var rawdata = response.data.results
       var d = rawdata.reverse()
-      const id = db.get('cachedBuildId')
-      if (d[0].id !== id) {
-        db.set('cachedBuildId', d[0].id)
+      if (!db.get('cachedBuildId').includes(d[0].id)) {
+        db.push('cachedBuildId', d[0].id)
         bot.channels.fetch('716966031091957781').then(ch => {
           ch.send('<@&716964461306577007> **New build!**')
           axios.get('https://dothq.co/api/builds.all').then(response => {

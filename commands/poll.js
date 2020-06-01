@@ -5,7 +5,7 @@ const emoji = require('node-emoji')
 exports.run = async (bot, message, args) => {
     const msg = message;
 
-    if (!message.member.roles.cache.has('525057083352285184') || !message.member.roles.cache.has('662323136343179264')) {
+    if (!message.member.roles.cache.has('525057083352285184') && !message.member.roles.cache.has('662323136343179264')) {
         return message.channel.send('You don\'t have access to this command.')
     } 
 

@@ -24,7 +24,8 @@
     "num-words": "^1.2.0",
     "quick.db": "^7.1.1",
     "request": "^2.88.2",
-    "request-promise": "^4.2.5"
+    "request-promise": "^4.2.5",
+    "timeago.js": "^4.0.2"
   },
   "devDependencies": {
     "standard": "^14.3.3"

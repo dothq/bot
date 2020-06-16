@@ -1,4 +1,5 @@
 const Discord = require('discord.js')
+const prettifyDate = require("../tools/dates")
 
 exports.run = async (bot, member) => {
     const guild = member.guild
@@ -17,5 +18,6 @@ exports.run = async (bot, member) => {
         .setTitle(`✨  Welcome to ${guild.name}, ${member.user.username}`)
         .addField('💫  Members', `${guild.memberCount}`, true)
         .addField('🏆  Total Joins', `${totalJoins}`, true)
+        .setFooter(`Account Created • ${prettifyDate(member.user.createdAt)}`, member.user.avatarURL())
     ch.send(embed)
 }

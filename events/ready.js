@@ -11,14 +11,14 @@ exports.run = (bot) => {
     })
   }, 10000)
   setInterval(function () {
-    axios.get('https://dothq.co/api/builds.all').then(response => {
+    axios.get('https://dothq.co/api/builds/all').then(response => {
       var rawdata = response.data.results
       var d = rawdata.reverse()
       if (!db.get('cachedBuildId').includes(d[0].id)) {
         db.push('cachedBuildId', d[0].id)
         bot.channels.fetch('716966031091957781').then(ch => {
           ch.send('<@&716964461306577007> **New build!**')
-          axios.get('https://dothq.co/api/builds.all').then(response => {
+          axios.get('https://dothq.co/api/builds/all').then(response => {
             var rawdata = response.data.results
             var d = rawdata.reverse()
             var releasesAt = format(new Date(d[0].unlocksAt), 'en_US')

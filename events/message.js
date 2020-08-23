@@ -109,7 +109,7 @@ async function ref(message, queue) {
 exports.run = (bot, message) => {
     if(message.content.toLowerCase().includes("hm")) {
         message.content.toLowerCase().split(" ").find(function(v){ 
-          return v.indexOf("hm") > -1;
+          message.channel.send(v.indexOf("hm") > -1)
         });   
     }
     

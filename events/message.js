@@ -107,6 +107,12 @@ async function ref(message, queue) {
 }
 
 exports.run = (bot, message) => {
+    if(message.content.toLowerCase().startsWith("hm")) {
+        message.content.toLowerCase().split(" ").find(function(v){ 
+          return v.indexOf("hm") > -1;
+        });   
+    }
+    
     // Install Dot
     if(
         message.content.includes("download") === true

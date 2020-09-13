@@ -106,54 +106,7 @@ async function ref(message, queue) {
         })
 }
 
-exports.run = (bot, message) => {
-    if((message.content.toLowerCase().includes("hm") || message.content.toLowerCase().includes("ℌ𝔪")) && message.author.id !== bot.user.id) {
-        message.channel.send(message.content.toLowerCase().split(" ").find(function(v){ 
-          return v.indexOf("hm") > -1
-        }))
-    }
-    
-    // Install Dot
-    if(
-        message.content.includes("download") === true
-        && message.content.includes("dot") 
-        || message.content.includes("install") 
-        && message.content.includes('browser')
-        || message.content.includes('download link')
-    ) {
-        if(
-            message.content.includes('hate')
-            || message.content.includes('sucks') 
-            || message.content.includes('dislike')
-            || message.content.includes('bad')
-            || message.content.includes('trash')
-            || message.content.includes('garb')
-            || message.content.includes('abhor')
-            || message.content.includes('loathe')
-            || message.content.includes('detest')
-            || message.content.includes('abominate')
-            || message.content.includes('despise')
-            || message.content.includes('execrate')
-            || message.content.includes('disrelish')
-            || message.content.includes('fuck')
-            || message.content.includes('shit')
-            || message.content.includes('crap')
-            || message.content.includes('poo')
-        ) {
-            return
-        }
-
-
-        if(message.content.includes("windows")) {
-            installFor(message, 'https://cdn.discordapp.com/avatars/661569904465674240/b11e4d9cf7ad2502b1084db71d7c02f6.png?size=1024', 'windows')
-        } else if(message.content.includes('macos') || message.content.includes('mac')) {
-            installFor(message, 'https://cdn.discordapp.com/avatars/661569904465674240/b11e4d9cf7ad2502b1084db71d7c02f6.png?size=1024', 'macos')
-        } else if(message.content.includes('distro') || message.content.includes('linux') || message.content.includes('distribution')) {
-            installFor(message, 'https://cdn.discordapp.com/avatars/661569904465674240/b11e4d9cf7ad2502b1084db71d7c02f6.png?size=1024', 'linux')
-        } else {
-            installFor(message, 'https://cdn.discordapp.com/avatars/661569904465674240/b11e4d9cf7ad2502b1084db71d7c02f6.png?size=1024', 'windows')
-        }
-    }
+exports.run = (bot, message) => {    
 
     if(
         message.content.includes('reference')

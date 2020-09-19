@@ -11,6 +11,10 @@ exports.run = async (bot, member) => {
     invites.forEach(invite => {
         totalJoins += invite.uses
     })
+    
+    const role = guild.roles.cache.find(role => role.name === "Member");
+    const member = member;
+    member.roles.add(role);
 
     const embed = new Discord.MessageEmbed()
         .setAuthor(member.user.username, member.user.avatarURL())

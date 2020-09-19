@@ -13,7 +13,6 @@ exports.run = async (bot, member) => {
     })
     
     const role = guild.roles.cache.find(role => role.name === "Member");
-    const member = member;
     member.roles.add(role);
 
     const embed = new Discord.MessageEmbed()
